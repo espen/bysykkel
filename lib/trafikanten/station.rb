@@ -11,6 +11,12 @@ module Trafikanten
     
     attr_accessor :name, :id, :type
     
+    def initialize(attrs = {})
+      attrs.each do |k,v|
+        self.__send__("#{k}=", v)
+      end
+    end
+    
     def self.find_all_by_name(name)
       name = CGI.escape(name)
       doc = Iconv.new('UTF-8', 'LATIN1').iconv(open(URL % name).read)
