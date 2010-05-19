@@ -57,8 +57,6 @@ describe Trafikanten::Route do
       route = Trafikanten::Route.new('123', '123')
       route.parse
       parsed = route.trip
-      require 'pp'
-      pp parsed
       parsed.class.should == Hash
 
       parsed[:steps].class.should == Array

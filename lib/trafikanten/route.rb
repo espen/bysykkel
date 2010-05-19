@@ -21,7 +21,7 @@ module Trafikanten
       'Buss' => :bus
     }
     
-    def initialize(from_id, to_id, time = Time.now)
+    def initialize(from_id, to_id, time = time_class.now)
       @from = Station.new({:id => from_id.to_s})      
       @to = Station.new({:id => to_id.to_s})
 
@@ -124,8 +124,8 @@ module Trafikanten
       from  = from.gsub('.', ':')
       to    = to.gsub('.', ':')
       
-      from_time = Time.parse(@time.strftime('%Y-%m-%d') + ' ' + from)
-      to_time   = Time.parse(@time.strftime('%Y-%m-%d') + ' ' + to)
+      from_time = time_class.parse(@time.strftime('%Y-%m-%d') + ' ' + from)
+      to_time   = time_class.parse(@time.strftime('%Y-%m-%d') + ' ' + to)
       
       if(to.to_f < from.to_f)
         to_time = to_time + (60 * 60 * 24)
@@ -135,12 +135,16 @@ module Trafikanten
     end
     
     def timestr_to_time(from_timestr, to_timestr)
-      time = Time.parse(@time.strftime('%Y-%m-%d') + ' ' + to_timestr.gsub('.', ':'))
+      time = time_class.parse(@time.strftime('%Y-%m-%d') + ' ' + to_timestr.gsub('.', ':'))
       
       if(to_timestr.to_f < from_timestr.to_f)
         time = time + (60 * 60 * 24)
       end
       time
+    end
+    
+    def time_class
+      Time.respond_to?(:zone) ? Time.zone : Time
     end
   end
 end

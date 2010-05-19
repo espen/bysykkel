@@ -1,6 +1,6 @@
 require 'open-uri'
 require 'iconv'
-require 'CGI'
+require 'cgi'
 
 module Trafikanten
   class Station
