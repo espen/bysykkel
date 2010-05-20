@@ -19,28 +19,25 @@ module Trafikanten
     
     def self.find_all_by_name(name)
       doc = search(name)
-
       doc.scan(STATION_REGEX).map do |station|
-        s = Station.new
-        s.id    = station[0]
-        s.type  = station[1]
-        s.name  = CGI.unescape(station[2])
-        s
+        Station.new({
+          :id => station[0],
+          :type => station[1],
+          :name => CGI.unescape(station[2])
+        })
       end
     end
     
     def self.find_by_name(name)
       doc = search(name)
-      station = doc.scan(ONE_STATION).first
-      
+      station = doc.scan(STATION_REGEX)[0]
       if station
-        s = Station.new
-        name = doc.scan(STATION_REGEX).first[2]
-        s.name = CGI.unescape(name)
-        s.id = station[0]
-        s.type
-        return s
-      end
+        return Station.new({
+          :id => station[0],
+          :type => station[1],
+          :name => CGI.unescape(station[2])
+        })
+      end      
     end
     
     # Internal type @ Trafikanten. Used with GET requests for routes in depType and arrType.

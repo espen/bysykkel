@@ -52,6 +52,14 @@ describe Trafikanten::Station do
       station.type.should == "1"
     end
     
+    it 'returns the top hit when no Neste-link is available' do
+      station = Trafikanten::Station.find_by_name('Ski skole (Ski)')
+      station.class.should == Trafikanten::Station
+      station.name.should == 'Ski skole (Ski)'
+      station.id.should == "02130295"
+      station.type.should == "1"
+    end
+    
     it 'returns nil when searching for a specific station and did not find any' do
       station = Trafikanten::Station.find_by_name('8742374892374923')
       station.should be_nil
