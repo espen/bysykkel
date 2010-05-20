@@ -8,6 +8,10 @@ module Trafikanten
     attr_accessor :trip
     BASE_URL = 'http://m.trafikanten.no/BetRes.asp?'
 
+    
+    NEXT_TRIP = /title="Neste avgang".+date=(\d{2}).(\d{2}).(\d{4}).+tid=(\d{2}).(\d{2})/
+    PREV_TRIP = //
+    
     # Regexes for matching steps in the HTML
     WALK    = /Gå\s+fra (.+) til (.+) ca. (\d) minutt/u
     WAIT    = /Vent\s+(\d+) minutt/
@@ -56,9 +60,9 @@ module Trafikanten
     
     private
     
-    def do_parse(doc)
+    def do_parse(raw)
       trip = {}
-      doc = Nokogiri::HTML.parse(doc)
+      doc = Nokogiri::HTML.parse(raw)
       
       trip[:steps] = doc.css('p')[1..-1].inject([]) do |ary, step|
         # Clean the text
@@ -80,7 +84,18 @@ module Trafikanten
         i += step[:duration] if step[:duration]
       end
       
+      # Next trip
+      # trip[:next] = parse_next(raw)
+      # Previous trip
+      # trip[:prev] = parse_prev(raw)
       trip
+    end
+    
+    def parse_next(doc)
+      Time.parse("#{$3}-#{$2}-#{$1} #{$4}:#{$5}") if doc =~ NEXT_TRIP
+    end
+    
+    def parse_prev(doc)
     end
     
     def parse_step(step)

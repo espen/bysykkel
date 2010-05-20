@@ -53,9 +53,9 @@ describe Trafikanten::Route do
     it 'parses Trafikanten HTML into nice data structures' do
       doc = File.read(File.dirname(__FILE__) + '/../fixtures/route.html')
       Trafikanten::Utils.stub(:fetch).and_return(doc)
-
-      route = Trafikanten::Route.new('123', '123')
+      route = Trafikanten::Route.new('07025050', '03010175', Time.parse('2010-05-19 12:24 +0200'))
       route.parse
+
       parsed = route.trip
       parsed.class.should == Hash
 
@@ -89,6 +89,15 @@ describe Trafikanten::Route do
   end
   
   context 'next trip' do
+    # it 'lists the next trip available' do
+    #   doc = File.read(File.dirname(__FILE__) + '/../fixtures/route.html')
+    #   Trafikanten::Utils.stub(:fetch).and_return(doc)
+    #   route = Trafikanten::Route.new('07025050', '03010175')
+    #   route.parse
+    #   
+    #   trip = route.trip
+    #   trip[:next].should == Time.parse('2010-05-19 12:25 +0200')
+    # end
     # Trafikanten does not increment the date. When you ask for the next
     # departure around midnight, it will just give you the first departure
     # of the same day, instead of the first departure the next day
@@ -98,6 +107,17 @@ describe Trafikanten::Route do
   end
   
   context 'previous trip' do
+    # it 'lists the previous trip available' do
+    #   doc = File.read(File.dirname(__FILE__) + '/../fixtures/route.html')
+    #   Trafikanten::Utils.stub(:fetch).and_return(doc)
+    #   route = Trafikanten::Route.new('07025050', '03010175')
+    #   route.parse
+    #   
+    #   trip = route.trip
+    #   require 'pp'
+    #   pp trip
+    #   trip[:previous].should == Time.parse('2010-05-19 12:25 +0200')
+    # end
     it 'decrements the day in the URL when the previous departure is before 00:00'
     
     it 'tries to find a departure up to 3 days in the past'
