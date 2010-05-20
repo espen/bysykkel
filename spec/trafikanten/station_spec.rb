@@ -34,7 +34,7 @@ describe Trafikanten::Station do
     end
     
     it 'returns an empty array when searching for multiple stations and did not find any' do
-      stations = Trafikanten::Station.find_all_by_name('4892384923')
+      stations = Trafikanten::Station.find_all_by_name('XXX')
       stations.should == []
     end
     
