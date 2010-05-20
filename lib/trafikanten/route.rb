@@ -30,28 +30,22 @@ module Trafikanten
     end
 
     def parse
-      # This is pretty brittle error-checking...
-      begin
-        doc = Trafikanten::Utils.fetch(BASE_URL + query_string)
-
-        if doc =~ /Microsoft VBScript runtime/
-          raise BadRequest
-        end
-
-        @trip = do_parse(doc)
-      rescue => e
-        if doc =~ /Ingen forbindelse funnet eller ingen stoppesteder funnet/
-          return {}
-        end
-
-        if doc =~ /Trafikanten - Feilmelding/
-          doc =~ /<p>(.+)<\/p>/
-          raise Error.new($1)
-        end
-
-        # Oops.
-        raise e
+      doc = Trafikanten::Utils.fetch(BASE_URL + query_string)
+      
+      if doc =~ /Trafikanten - Feilmelding/
+        doc =~ /<p>(.+)<\/p>/
+        raise Error.new($1)
       end
+      
+      if doc =~ /Microsoft VBScript runtime/
+        raise BadRequest
+      end
+      
+      if doc =~ /Ingen forbindelse funnet eller ingen stoppesteder funnet/
+        return {}
+      end
+      
+      @trip = do_parse(doc)
     end
     
     private
