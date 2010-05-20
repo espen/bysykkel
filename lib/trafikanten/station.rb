@@ -5,7 +5,7 @@ require 'cgi'
 module Trafikanten
   class Station
     URL = "http://m.trafikanten.no/BetLink.asp?fra=%s&DStoppAddress=1"
-    #<a href="ToCombo.asp?fra=01351445%3AAker&amp;deptype=1" title="Velg">Aker (Råde)</a><br/>
+
     STATION_REGEX = /<a.+fra=(\d+).*deptype=(\d)".+>(.+)<\/a><br\/>/
     ONE_STATION = /<a.+fra=(\d+).*deptype=(\d)"\/>Neste<\/a>/
     
