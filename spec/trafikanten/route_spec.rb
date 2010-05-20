@@ -109,6 +109,7 @@ eos
 
         Trafikanten::Utils.stub(:fetch).and_return(missing)
         route = Trafikanten::Route.new(123, 123)
+        route.parse
         route.trip.should == {}
       end
 

@@ -32,6 +32,10 @@ module Trafikanten
     def parse
       doc = Trafikanten::Utils.fetch(BASE_URL + query_string)
       
+      if doc =~ /Ingen forbindelse funnet eller ingen stoppesteder funnet/
+        return {}
+      end
+      
       if doc =~ /Trafikanten - Feilmelding/
         doc =~ /<p>(.+)<\/p>/
         raise Error.new($1)
@@ -39,10 +43,6 @@ module Trafikanten
       
       if doc =~ /Microsoft VBScript runtime/
         raise BadRequest
-      end
-      
-      if doc =~ /Ingen forbindelse funnet eller ingen stoppesteder funnet/
-        return {}
       end
       
       @trip = do_parse(doc)
