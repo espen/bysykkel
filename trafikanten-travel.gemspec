@@ -32,7 +32,8 @@ Gem::Specification.new do |s|
      "spec/options",
      "spec/trafikanten_travel/route_spec.rb",
      "spec/trafikanten_travel/station_spec.rb",
-     "spec/trafikanten_travel/utils_spec.rb"
+     "spec/trafikanten_travel/utils_spec.rb",
+     "trafikanten-travel.gemspec"
   ]
   s.homepage = %q{http://github.com/runeb/trafikanten-travel}
   s.rdoc_options = ["--charset=UTF-8"]
