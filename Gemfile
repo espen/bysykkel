@@ -2,5 +2,5 @@
 source 'http://gemcutter.org'
 source 'http://gems.github.com'
 
-gem 'nokogiri'
+gem 'nokogiri', '1.4.1'
 gem 'tallakt-geoutm', '0.0.3', :require => 'geoutm'
