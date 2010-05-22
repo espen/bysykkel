@@ -1,4 +1,4 @@
-= Trafikanten Route Planner
+= Trafikanten Travel Planner
 
 == Description
 
@@ -19,7 +19,7 @@ You query trafikanten.no by the name of the station and you receive an array of 
 
 	Station.find_by_name 'Sthanshaugen'
 
-The station objects will have attributes for name, id, type, lat and lng. lat and lng might not be avaiable, and are then set to nil.
+The station objects will have attributes for name, id, type, lat and lng. lat and lng might not be available, and are then set to nil.
 
 === Finding a route between stations
 Once you have the stations, you use their IDs to create a Route object:
