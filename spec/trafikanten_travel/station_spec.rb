@@ -1,11 +1,11 @@
 #:encoding:utf-8
 
-require File.dirname(__FILE__) + '/../../lib/trafikanten/station'
+require File.dirname(__FILE__) + '/../../lib/trafikanten_travel/station'
 
-describe Trafikanten::Station do  
+describe TrafikantenTravel::Station do  
   context 'search' do    
     it 'searches by name and returns Stations array' do
-      stations = Trafikanten::Station.find_by_name('Ullevåll')
+      stations = TrafikantenTravel::Station.find_by_name('Ullevåll')
       stations.size.should == 6
 
       # Test first
@@ -17,7 +17,7 @@ describe Trafikanten::Station do
     end
     
     it 'returns an empty array when searching for stations and did not find any' do
-      stations = Trafikanten::Station.find_by_name('XXX')
+      stations = TrafikantenTravel::Station.find_by_name('XXX')
       stations.should == []
     end
     
@@ -25,7 +25,7 @@ describe Trafikanten::Station do
   
   context 'geodata' do
     it 'has latitude and longitude' do
-      stations = Trafikanten::Station.find_by_name('Sthanshaugen')
+      stations = TrafikantenTravel::Station.find_by_name('Sthanshaugen')
       
       # Test first
       station = stations.first
@@ -37,7 +37,7 @@ describe Trafikanten::Station do
   
   context 'type' do
     it 'is guessed based on ID length when not known' do
-      s = Trafikanten::Station.new
+      s = TrafikantenTravel::Station.new
 
       s.id = '1000020910'
       s.type.should == "2"
@@ -50,7 +50,7 @@ describe Trafikanten::Station do
     end
 
     it 'is not guessed when known' do
-      s = Trafikanten::Station.new
+      s = TrafikantenTravel::Station.new
       s.id = '1000020910'
       s.type = "29"
       s.type.should == "29"

@@ -1,6 +1,6 @@
 require 'iconv'
 
-module Trafikanten
+module TrafikantenTravel
   module Utils
     def self.fetch(url)
       Iconv.new('UTF-8', 'LATIN1').iconv(open(url).read)

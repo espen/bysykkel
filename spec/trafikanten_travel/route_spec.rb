@@ -1,10 +1,10 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../../lib/trafikanten'
+require File.dirname(__FILE__) + '/../../lib/trafikanten_travel'
 
-describe Trafikanten::Route do
+describe TrafikantenTravel::Route do
   
   it 'converts station ids to strings' do
-    route = Trafikanten::Route.new(1, 2)
+    route = TrafikantenTravel::Route.new(1, 2)
     route.instance_variable_get('@from').id.should == '1'
     route.instance_variable_get('@to').id.should == '2'
   end
@@ -12,28 +12,28 @@ describe Trafikanten::Route do
   context 'url generation' do
     # Test the whole thing
     it 'generates exactly this' do
-      route = Trafikanten::Route.new('1000013064', '02350113')
+      route = TrafikantenTravel::Route.new('1000013064', '02350113')
       query = route.send(:query_string)
       query.should == "fra=1000013064%3A&DepType=2&date=#{Time.now.strftime("%d.%m.%Y")}&til=02350113%3A&arrType=1&Transport=2,%207,%205,%208,%201,%206,%204&MaxRadius=700&type=1&tid=#{Time.now.strftime("%H.%M")}"
     end
     
     # Test the parts in isolation
     it 'takles stations and their types' do
-      route = Trafikanten::Route.new('1000013064', '02350113')
+      route = TrafikantenTravel::Route.new('1000013064', '02350113')
       query = route.send(:query_string)
       query.should =~ /fra=1000013064%3A&DepType=2/
       query.should =~ /til=02350113%3A&arrType=1/
     end
     
     it 'defaults to Time.now' do
-      route = Trafikanten::Route.new('1000013064', '02350113')
+      route = TrafikantenTravel::Route.new('1000013064', '02350113')
       query = route.send(:query_string)
       query.should =~ /date=#{Time.now.strftime("%d.%m.%Y")}/
       query.should =~ /tid=#{Time.now.strftime("%H.%M")}/
     end
     
     it 'uses the time passed in' do
-      route = Trafikanten::Route.new('1000013064', '02350113', Time.parse('2010-04-29 13:29'))
+      route = TrafikantenTravel::Route.new('1000013064', '02350113', Time.parse('2010-04-29 13:29'))
       query = route.send(:query_string)
       query.should =~ /&date=29.04.2010/
       query.should =~ /&tid=13.29/
@@ -42,7 +42,7 @@ describe Trafikanten::Route do
   
   context 'time awareness' do
     it 'can tell the duration in minutes, from messed up time information' do
-      route = Trafikanten::Route.new(1, 2)
+      route = TrafikantenTravel::Route.new(1, 2)
       route.send(:duration, '12.00', '13.45').should == 60 + 45
       route.send(:duration, '23.30', '00.05').should == 30 + 5
       route.send(:duration, '00.00', '00.00').should == 0
@@ -52,8 +52,8 @@ describe Trafikanten::Route do
   context 'parsing routes' do
     it 'parses Trafikanten HTML into nice data structures' do
       doc = File.read(File.dirname(__FILE__) + '/../fixtures/route.html')
-      Trafikanten::Utils.stub(:fetch).and_return(doc)
-      route = Trafikanten::Route.new('07025050', '03010175', Time.parse('2010-05-19 12:24 +0200'))
+      TrafikantenTravel::Utils.stub(:fetch).and_return(doc)
+      route = TrafikantenTravel::Route.new('07025050', '03010175', Time.parse('2010-05-19 12:24 +0200'))
       route.parse
 
       parsed = route.trip
@@ -107,8 +107,8 @@ describe Trafikanten::Route do
         </html>
 eos
 
-        Trafikanten::Utils.stub(:fetch).and_return(missing)
-        route = Trafikanten::Route.new(123, 123)
+        TrafikantenTravel::Utils.stub(:fetch).and_return(missing)
+        route = TrafikantenTravel::Route.new(123, 123)
         route.parse
         route.trip.should == {}
       end
@@ -131,8 +131,8 @@ eos
         </body>
         </html>
 eos
-        Trafikanten::Utils.stub(:fetch).and_return(error)
-        lambda { Trafikanten::Route.new(123, 123).parse }.should raise_error(Trafikanten::Error, "Some generic error")
+        TrafikantenTravel::Utils.stub(:fetch).and_return(error)
+        lambda { TrafikantenTravel::Route.new(123, 123).parse }.should raise_error(TrafikantenTravel::Error, "Some generic error")
 
             error = <<eos
 
@@ -151,8 +151,8 @@ eos
             </body>
             </html>
 eos
-            Trafikanten::Utils.stub(:fetch).and_return(error)
-            lambda { Trafikanten::Route.new(123, 123).parse }.should raise_error(Trafikanten::Error, "Some totally different error")
+            TrafikantenTravel::Utils.stub(:fetch).and_return(error)
+            lambda { TrafikantenTravel::Route.new(123, 123).parse }.should raise_error(TrafikantenTravel::Error, "Some totally different error")
       end
 
       it 'handles unpredicted errors as bad requests' do
@@ -169,8 +169,8 @@ eos
         <p>
         <font face="Arial" size=2>/BetRes.asp</font><font face="Arial" size=2>, line 71</font>
 eos
-        Trafikanten::Utils.stub(:fetch).and_return(weird_error)
-        lambda { Trafikanten::Route.new(123, 123).parse }.should raise_error(Trafikanten::BadRequest)
+        TrafikantenTravel::Utils.stub(:fetch).and_return(weird_error)
+        lambda { TrafikantenTravel::Route.new(123, 123).parse }.should raise_error(TrafikantenTravel::BadRequest)
       end
   end
 end

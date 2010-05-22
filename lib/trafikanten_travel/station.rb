@@ -1,4 +1,4 @@
-module Trafikanten
+module TrafikantenTravel
   class Station
     BASE_URL = 'http://www5.trafikanten.no/txml/?type=1&stopname=%s'
     

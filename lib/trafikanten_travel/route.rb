@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-module Trafikanten
+module TrafikantenTravel
   class Error < StandardError;end
   class BadRequest < Error;end
   
@@ -32,7 +32,7 @@ module Trafikanten
 
     # Parse the received HTML. First try some error-checking.
     def parse
-      doc = Trafikanten::Utils.fetch(BASE_URL + query_string)
+      doc = TrafikantenTravel::Utils.fetch(BASE_URL + query_string)
       
       if doc =~ /Ingen forbindelse funnet eller ingen stoppesteder funnet/
         return {}
