@@ -1,12 +1,8 @@
-require 'open-uri'
-require 'iconv'
-require 'cgi'
-
 module Trafikanten
   class Station
     BASE_URL = 'http://www5.trafikanten.no/txml/?type=1&stopname=%s'
     
-    attr_accessor :name, :id, :type, :coordinates
+    attr_accessor :name, :id, :type, :lat, :lng
     
     def initialize(attrs = {})
       attrs.each do |k,v|
@@ -18,10 +14,19 @@ module Trafikanten
       raw = open(BASE_URL % CGI.escape(name))
       doc = Nokogiri::XML.parse raw
       hits = doc.css('StopMatch').inject([]) do |ary, stop|
+        
+        x_coord = stop.css('XCoordinate').text
+        y_coord = stop.css('YCoordinate').text
+        
+        if x_coord != '0' && y_coord != '0'
+          lat_lng = GeoUtm::UTM.new('32V', x_coord.to_i, y_coord.to_i).to_lat_lon
+        end
+
         ary << Station.new({
           :id => stop.css('fromid').text, 
           :name => stop.css('StopName').text,
-          :coordinates => [stop.css('XCoordinate').text, stop.css('YCoordinate').text]
+          :lat => lat_lng ? lat_lng.lat.to_s : nil,
+          :lng => lat_lng ? lat_lng.lon.to_s : nil
         })
       end
     end

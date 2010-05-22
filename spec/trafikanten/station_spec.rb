@@ -30,7 +30,8 @@ describe Trafikanten::Station do
       # Test first
       station = stations.first
       station.name.should == "St. Hanshaugen (v/ Markus krk)"
-      station.coordinates.should == ['597252', '6644222']
+      station.lat.should == '59.9239720442894'
+      station.lng.should == '10.7397078950283'
     end
   end
   
