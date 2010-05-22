@@ -2,70 +2,37 @@
 
 require File.dirname(__FILE__) + '/../../lib/trafikanten/station'
 
-describe Trafikanten::Station do
-  
-  context 'search' do
-    it 'can search for funky characters' do
-      stations = Trafikanten::Station.find_all_by_name('Ullevåll')
-      stations.size.should == 10
+describe Trafikanten::Station do  
+  context 'search' do    
+    it 'searches by name and returns Stations array' do
+      stations = Trafikanten::Station.find_by_name('Ullevåll')
+      stations.size.should == 6
 
       # Test first
       station = stations[0]
-      station.name.should == "Ullev&#229;l hageby # (Oslo)"
-      station.id.should == '1000013064'
-      station.type.should == '2'
-    end
-    
-    it 'can search for multiple stations by name' do
-      stations = Trafikanten::Station.find_all_by_name('Hels')
-      stations.size.should == 20
-
-      # Test first
-      station = stations[0]
-      station.name.should == "Helseheimen (Ullensaker)"
-      station.id.should == '02350113'
+      station.name.should == "Ullevål stadion (i Sognsveien)"
+      station.id.should == '03012211'
       station.type.should == '1'
-
-      # Test middle
-      station = stations[9]
-      station.name.should == "Helsfyr # (Oslo)"
-      station.id.should == '1000021179'
-      station.type.should == '2'
+      
     end
     
-    it 'returns an empty array when searching for multiple stations and did not find any' do
-      stations = Trafikanten::Station.find_all_by_name('XXX')
+    it 'returns an empty array when searching for stations and did not find any' do
+      stations = Trafikanten::Station.find_by_name('XXX')
       stations.should == []
     end
     
-    it 'can search for a specific station by name' do
-      station = Trafikanten::Station.find_by_name('Helsfyr [T-bane]')
-      station.class.should == Trafikanten::Station
-      station.name.should == 'Helsfyr [T-bane] (Oslo)'
-      station.id.should == "03011440"
-      station.type.should == "1"
-
-      station = Trafikanten::Station.find_by_name('Helsfyr [T-bane] (Oslo)')
-      station.class.should == Trafikanten::Station
-      station.name.should == 'Helsfyr [T-bane] (Oslo)'
-      station.id.should == "03011440"
-      station.type.should == "1"
+  end
+  
+  context 'geodata' do
+    it 'has coordinates' do
+      stations = Trafikanten::Station.find_by_name('Sthanshaugen')
+      
+      # Test first
+      station = stations.first
+      station.name.should == "St. Hanshaugen (v/ Markus krk)"
+      station.coordinates.should == ['597252', '6644222']
     end
-    
-    it 'returns the top hit when no Neste-link is available' do
-      station = Trafikanten::Station.find_by_name('Ski skole (Ski)')
-      station.class.should == Trafikanten::Station
-      station.name.should == 'Ski skole (Ski)'
-      station.id.should == "02130295"
-      station.type.should == "1"
-    end
-    
-    it 'returns nil when searching for a specific station and did not find any' do
-      station = Trafikanten::Station.find_by_name('8742374892374923')
-      station.should be_nil
-    end
-    
-  end  
+  end
   
   context 'type' do
     it 'is guessed based on ID length when not known' do
