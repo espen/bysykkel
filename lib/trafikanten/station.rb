@@ -10,6 +10,11 @@ module Trafikanten
       end
     end
     
+    # Query the Travel XML API @ trafikanten.no for Stations. This will only
+    # include actual stations, not regions (type 2) We'll have to parse
+    # m.trafikanten.no to receive those, but that will not give us coordinates
+    # for the actual stations. See git history for an implementation that did
+    # this.
     def self.find_by_name(name)
       raw = open(BASE_URL % CGI.escape(name))
       doc = Nokogiri::XML.parse raw
@@ -31,8 +36,8 @@ module Trafikanten
       end
     end
     
-    # Internal type @ Trafikanten. Used with GET requests for routes in depType and arrType.
-    # We guess these
+    # Internal type @ Trafikanten. Used with GET requests for routes in
+    # depType and arrType. We guess these unless set.
     def type
       return @type if @type
       

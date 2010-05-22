@@ -21,6 +21,7 @@ module Trafikanten
       'Buss' => :bus
     }
     
+    # TODO: Take Station objects, not strings of ids
     def initialize(from_id, to_id, time = time_class.now)
       @from = Station.new({:id => from_id.to_s})      
       @to = Station.new({:id => to_id.to_s})
@@ -29,6 +30,7 @@ module Trafikanten
       @trip = {}
     end
 
+    # Parse the received HTML. First try some error-checking.
     def parse
       doc = Trafikanten::Utils.fetch(BASE_URL + query_string)
       
@@ -50,6 +52,7 @@ module Trafikanten
     
     private
     
+    # Do the actual parsing
     def do_parse(raw)
       trip = {}
       doc = Nokogiri::HTML.parse(raw)
@@ -59,8 +62,8 @@ module Trafikanten
         step = step.text.strip.gsub(/\s/, ' ')
         
         # Fix for broken formatting
-        # All steps but this one is in its own paragraph-tag
-        # Need to split them and parse both
+        # All steps but this one are in their own paragraph-tag
+        # Need to split them and parse each
         if step =~ /^(Vent .+ minutter|minutt)(.+)/
           ary << parse_step($1)
           ary << parse_step($2)
@@ -77,7 +80,7 @@ module Trafikanten
       trip
     end
 
-    
+    # Parse a single step
     def parse_step(step)
       parsed = {}
       case step
@@ -110,11 +113,13 @@ module Trafikanten
     end
     
     private
+    # The crucial part of the URL we need to fetch to find the route
     def query_string
       "fra=#{@from.id}%3A&DepType=#{@from.type}&date=#{@time.strftime("%d.%m.%Y")}&til=#{@to.id}%3A&arrType=#{@to.type}&Transport=2,%207,%205,%208,%201,%206,%204&MaxRadius=700&type=1&tid=#{@time.strftime("%H.%M")}"
     end
     
     # Accepts two HH.MM and will calculate and return the difference in minutes based on the @time date
+    # FIXME: This is baaad
     def duration(from, to)
       from  = from.gsub('.', ':')
       to    = to.gsub('.', ':')
@@ -129,6 +134,7 @@ module Trafikanten
       ((to_time - from_time) / 60).to_i
     end
     
+    # FIXME: Also baaad
     def timestr_to_time(from_timestr, to_timestr)
       time = time_class.parse(@time.strftime('%Y-%m-%d') + ' ' + to_timestr.gsub('.', ':'))
       
@@ -138,6 +144,7 @@ module Trafikanten
       time
     end
     
+    # Its nice to have TimeWithZone
     def time_class
       Time.respond_to?(:zone) ? Time.zone : Time
     end

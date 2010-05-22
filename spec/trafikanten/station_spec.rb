@@ -24,7 +24,7 @@ describe Trafikanten::Station do
   end
   
   context 'geodata' do
-    it 'has coordinates' do
+    it 'has latitude and longitude' do
       stations = Trafikanten::Station.find_by_name('Sthanshaugen')
       
       # Test first
