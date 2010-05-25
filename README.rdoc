@@ -17,12 +17,13 @@ route:
 === Finding stations
 You query trafikanten.no by the name of the station and you receive an array of hits with information about each
 
+	require 'trafikanten_travel'
 	stations = Station.find_by_name 'Sthanshaugen'
 
 The station objects will have attributes for name, id, type, lat and lng. lat and lng might not be available, and are then set to nil.
 
 === Finding a route between stations
-Once you have the stations, you use their IDs to create a Route object:
+Once you have the stations, you use them to search for a Route:
 
 	from = stations[0]
 	to = stations[1]
@@ -31,13 +32,13 @@ Once you have the stations, you use their IDs to create a Route object:
 	# or specify a time
 	route = Route.find(from, to, a_time_object)
 
-This will query trafikanten.no for the first available route based on Time.now
-or the passed in time and parse the route it found, if any. The Route object
-will have a duration attribtue for the duration of the trip in minutes, and a
-steps array with a Step object for each leg of the journey. Each Step tells
-you its type (walk, wait, tram, subway, boat, train, bus), duration in
-minutes, and arrival and departure station names along with times for these.
-All these are attributes on the Step object.
+This will query trafikanten.no for the first available route between the
+stations based on Time.now or the passed in time and parse the route it found,
+if any. The Route object will have a duration attribute for the duration of
+the trip in minutes, and a steps array with a Step object for each leg of the
+journey. Each Step object tells you its type (walk, wait, tram, subway, boat,
+train, bus), duration in minutes, and arrival and departure station names
+along with times for these. All these are attributes on the Step object.
 
 == TODO
 * Also include 'area' stations, which are not actual stations but regions
@@ -46,20 +47,18 @@ All these are attributes on the Step object.
 * Let the depart and arrive stations in Step be actual Station objects
 
 == Note on Patches/Pull Requests
- 
+
 * Fork the project.
+* Add tests in spec/
 * Make your feature addition or bug fix.
-* Add tests for it in spec/
-* Commit, do not mess with Rakefile or VERSION.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
+* Commit, do not mess with Rakefile or VERSION. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
 == Running tests
 
   rake
 
-If you get errors about missing gems - just install them.
+If you get errors about missing gems - `bundle install` should get you sorted.
 
 == Copyright
 
