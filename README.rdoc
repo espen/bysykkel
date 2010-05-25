@@ -17,29 +17,33 @@ route:
 === Finding stations
 You query trafikanten.no by the name of the station and you receive an array of hits with information about each
 
-	Station.find_by_name 'Sthanshaugen'
+	stations = Station.find_by_name 'Sthanshaugen'
 
 The station objects will have attributes for name, id, type, lat and lng. lat and lng might not be available, and are then set to nil.
 
 === Finding a route between stations
 Once you have the stations, you use their IDs to create a Route object:
 
-	route = Route.new('id1', 'id2)
-	route.parse
+	from = stations[0]
+	to = stations[1]
+	route = Route.find(from, to)
+	
+	# or specify a time
+	route = Route.find(from, to, a_time_object)
 
-The route object will then query trafikanten.no for the first available route
-based on Time.now and parse the route it found, if any. The route is kept as a
-hash in the trip property. This hash has one key for the duration of the trip
-in minutes, and an array for the steps of the route. Each step tells you its
-duration in minutes, type (walk, wait, tram, subway, boat, train, bus) and
-arrival and departure station names.
+This will query trafikanten.no for the first available route based on Time.now
+or the passed in time and parse the route it found, if any. The Route object
+will have a duration attribtue for the duration of the trip in minutes, and a
+steps array with a Step object for each leg of the journey. Each Step tells
+you its type (walk, wait, tram, subway, boat, train, bus), duration in
+minutes, and arrival and departure station names along with times for these.
+All these are attributes on the Step object.
 
 == TODO
 * Also include 'area' stations, which are not actual stations but regions
 * Implement finding routes by street address
 * Implement via-stations to chain routes together
-* Let Route.new take station objects instead of id strings
-* Let the stations in the trip hash be actual Station objects
+* Let the depart and arrive stations in Step be actual Station objects
 
 == Note on Patches/Pull Requests
  

@@ -1,0 +1,8 @@
+* 0.2.0
+  Route.new takes Station objects, not strings
+  Route has a find class method for searching for routes
+  Route has a steps attribute with is an Array of Step objects for the route
+  Route has a duration attribute
+
+* 0.1.0
+  Initial version

@@ -12,7 +12,7 @@ begin
     gem.authors = ["Rune Botten"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_dependency('nokogiri', '>= 1.4.1')
-    gem.add_dependency('tallakt-geoutm', '>= 0.0.3') # --source http://gems.github.com
+    gem.add_dependency('geoutm', '>= 0.0.4') # --source http://gems.github.com
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
