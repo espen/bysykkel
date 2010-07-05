@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{trafikanten-travel}
-  s.version = "0.2.3"
+  s.version = "0.2.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rune Botten"]
-  s.date = %q{2010-05-30}
+  s.date = %q{2010-07-05}
   s.description = %q{Query the travel planner at trafikanten.no with Ruby}
   s.email = %q{rbotten@gmail.com}
   s.extra_rdoc_files = [
@@ -28,8 +28,10 @@ Gem::Specification.new do |s|
      "lib/trafikanten_travel/route.rb",
      "lib/trafikanten_travel/station.rb",
      "lib/trafikanten_travel/utils.rb",
+     "spec/fixtures/deviation.html",
      "spec/fixtures/route.html",
      "spec/fixtures/route_search.html",
+     "spec/fixtures/route_with_deviation.html",
      "spec/options",
      "spec/spec.opts",
      "spec/trafikanten_travel/route_spec.rb",
