@@ -49,6 +49,12 @@ describe TrafikantenTravel::Route do
       }
     end
     
+    it 'knows about the Airport Express train' do
+      str = "Flytog FT Drammen    Avg: Gardermoen flyplass [tog] 11.36  Ank:Oslo Sentralstasjon [tog] 11.58"
+      result = TrafikantenTravel::Route::Step.from_html(Time.now, str)
+      result.type.should == :airport_express_train
+    end
+    
     context 'url generation' do
       # Test the whole thing
       it 'generates exactly this' do

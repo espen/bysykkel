@@ -88,7 +88,8 @@ module TrafikantenTravel
         'T-bane' => :subway,
         'Sporvogn' => :tram,
         'Båt' => :boat,
-        'Buss' => :bus
+        'Buss' => :bus,
+        'Flytog' => :airport_express_train
       }
       
       def self.from_html(time, html)
