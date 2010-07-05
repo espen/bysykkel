@@ -58,21 +58,21 @@ describe TrafikantenTravel::Route do
     context 'url generation' do
       # Test the whole thing
       it 'generates exactly this' do
-        route = TrafikantenTravel::Route.find(@from, @to )
+        route = TrafikantenTravel::Route.new(@from, @to)
         query = route.send(:query_string)
         query.should == "fra=1000013064%3A&DepType=2&date=#{Time.now.strftime("%d.%m.%Y")}&til=02350113%3A&arrType=1&Transport=2,%207,%205,%208,%201,%206,%204&MaxRadius=700&type=1&tid=#{Time.now.strftime("%H.%M")}"
       end
 
       # Test the parts in isolation
       it 'takles stations and their types' do
-        route = TrafikantenTravel::Route.find(@from, @to )
+        route = TrafikantenTravel::Route.new(@from, @to)
         query = route.send(:query_string)
         query.should =~ /fra=1000013064%3A&DepType=2/
         query.should =~ /til=02350113%3A&arrType=1/
       end
 
       it 'defaults to Time.now' do
-        route = TrafikantenTravel::Route.find(@from, @to )
+        route = TrafikantenTravel::Route.new(@from, @to)
         query = route.send(:query_string)
         query.should =~ /date=#{Time.now.strftime("%d.%m.%Y")}/
         query.should =~ /tid=#{Time.now.strftime("%H.%M")}/
@@ -109,14 +109,20 @@ describe TrafikantenTravel::Route do
         <link rel="stylesheet" href="m.css" type="text/css" />
         <title>Trafikanten - Feilmelding</title>
         <body>
-           <p>Ingen forbindelse funnet eller ingen stoppesteder funnet</p>
+           <p>%s</p>
         </body>
         </html>
 eos
 
-        TrafikantenTravel::Utils.stub(:fetch).and_return(missing)
-        route = TrafikantenTravel::Route.find(@from, @to)
-        route.steps.should == []
+        [
+          'Ingen turer ankommer ankomststed', 
+          'Ingen forbindelse funnet eller ingen stoppesteder funnet',
+          'Ingen turer utgår fra avgangsted'
+          ].each do |notfound|
+            TrafikantenTravel::Utils.stub(:fetch).and_return(missing % notfound)
+            route = TrafikantenTravel::Route.find(@from, @to)
+            route.steps.should == []
+          end
       end
 
       it 'it parses errors and raises them locally' do

@@ -1,3 +1,5 @@
+* 0.2.3
+  Found some more indicators that a route was not available
 * 0.2.0
   Route.new takes Station objects, not strings
   Route has a find class method for searching for routes

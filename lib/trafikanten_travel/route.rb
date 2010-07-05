@@ -8,6 +8,7 @@ module TrafikantenTravel
     include TrafikantenTravel::Utils
     attr_accessor :duration, :steps
     BASE_URL = 'http://m.trafikanten.no/BetRes.asp?'
+    NOTFOUND = /Ingen forbindelse funnet eller ingen stoppesteder funnet|Ingen turer ankommer ankomststed|Ingen turer utgår fra avgangsted/u
     
     # Searches and returns a Route object for the found trip
     def self.find(from, to, time = TrafikantenTravel::Utils.time_class.now)
@@ -23,20 +24,17 @@ module TrafikantenTravel
       @steps = []
     end
 
-    # Parse the received HTML. First try some error-checking.
+    # Parse the received HTML. First try some simple error-checking.
     def parse
       doc = TrafikantenTravel::Utils.fetch(BASE_URL + query_string)
       
-      if doc =~ /Ingen forbindelse funnet eller ingen stoppesteder funnet/
+      case doc
+      when NOTFOUND
         return {}
-      end
-      
-      if doc =~ /Trafikanten - Feilmelding/
+      when /Trafikanten - Feilmelding/
         doc =~ /<p>(.+)<\/p>/
         raise Error.new($1)
-      end
-      
-      if doc =~ /Microsoft VBScript runtime/
+      when /Microsoft VBScript runtime/
         raise BadRequest
       end
       
