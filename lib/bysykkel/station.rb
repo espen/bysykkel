@@ -1,4 +1,4 @@
-module BysykkelTravel
+module Bysykkel
   class Station
     STATIONS_URL = 'http://smartbikeportal.clearchannel.no/public/mobapp/maq.asmx/getRacks'
     STATION_URL = 'http://smartbikeportal.clearchannel.no/public/mobapp/maq.asmx/getRack?id=%s'

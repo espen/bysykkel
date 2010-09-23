@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "bysykkel-travel"
+    gem.name = "bysykkel"
     gem.summary = %Q{Bysykkel API Wrapper}
     gem.description = %Q{Query the city bike availability API at clearchannel.no with Ruby}
     gem.email = "espen@inspired.no"
@@ -42,7 +42,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "bysykkel-travel #{version}"
+  rdoc.title = "bysykkel #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
