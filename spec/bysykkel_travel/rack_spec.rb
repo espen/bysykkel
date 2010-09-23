@@ -1,5 +1,6 @@
 #:encoding:utf-8
 
+require File.dirname(__FILE__) + '/../../lib/bysykkel_travel'
 require File.dirname(__FILE__) + '/../../lib/bysykkel_travel/rack'
 
 describe BysykkelTravel::Rack do  
@@ -15,7 +16,7 @@ describe BysykkelTravel::Rack do
       
     end
     
-    it 'returns an empty array when searching for stations and did not find any' do
+    it 'returns an empty array when searching for racks and did not find any' do
       racks = BysykkelTravel::Rack.find_by_name(289282)
       racks.should == []
     end
