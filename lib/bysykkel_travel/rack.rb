@@ -14,19 +14,13 @@ module BysykkelTravel
     def self.find_by_id(id)
       raw = open(BASE_URL % CGI.escape(id))
       doc = Nokogiri::XML.parse raw
-      hits = doc.css('StopMatch').inject([]) do |ary, stop|
-        
-        x_coord = stop.css('XCoordinate').text
-        y_coord = stop.css('YCoordinate').text
-        
-        if x_coord != '0' && y_coord != '0'
-          lat_lng = GeoUtm::UTM.new('32V', x_coord.to_i, y_coord.to_i).to_lat_lon
-        end
+      hits = doc.xpath('string').inject([]) do |ary, stop|
 
         ary << Rack.new({
           :id => id, 
-          :lat => lat_lng ? lat_lng.lat.to_s : nil,
-          :lng => lat_lng ? lat_lng.lon.to_s : nil
+          :description => stop.xpath('description').text,
+          :lat => stop.xpath('latitude').text,
+          :lng => stop.xpath('longitute').text
         })
       end
     end

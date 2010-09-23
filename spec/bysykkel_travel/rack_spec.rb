@@ -1,6 +1,5 @@
 #:encoding:utf-8
 
-require File.dirname(__FILE__) + '/../../lib/bysykkel_travel'
 require File.dirname(__FILE__) + '/../../lib/bysykkel_travel/rack'
 
 describe BysykkelTravel::Rack do  
