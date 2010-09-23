@@ -1,5 +1,9 @@
+* 0.2.0
+  Refactored. Renamed to bysykkel.
+  Added station.all
+
 * 0.1.4
-  Return rack
+  Return station
   Turning string in xml into xml
 
 * 0.1.0

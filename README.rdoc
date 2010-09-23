@@ -1,4 +1,4 @@
-= Bysykkel Travel Planner
+= Bysykkel API
 
 == Description
 
@@ -7,7 +7,8 @@ Query the Clear Channel XML api to get a live overview of availability of city b
 
 
 == TODO
-* List all racks
+* More tests.
+* Handle http errors (404, 500)
 
 == Note on Patches/Pull Requests
 
