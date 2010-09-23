@@ -1,8 +1,8 @@
-module TrafikantenTravel
-  class Station
-    BASE_URL = 'http://www5.trafikanten.no/txml/?type=1&stopname=%s'
+module BysykkelTravel
+  class Rack
+    BASE_URL = 'http://smartbikeportal.clearchannel.no/public/mobapp/maq.asmx/getRack?id=%s'
     
-    attr_accessor :name, :id, :type, :lat, :lng
+    attr_accessor :description, :id, :type, :lat, :lng, :empty_locks, :ready_bikes, :online
     
     def initialize(attrs = {})
       attrs.each do |k,v|
@@ -15,8 +15,8 @@ module TrafikantenTravel
     # m.trafikanten.no to receive those, but that will not give us coordinates
     # for the actual stations. See git history for an implementation that did
     # this.
-    def self.find_by_name(name)
-      raw = open(BASE_URL % CGI.escape(name))
+    def self.find_by_id(id)
+      raw = open(BASE_URL % CGI.escape(id))
       doc = Nokogiri::XML.parse raw
       hits = doc.css('StopMatch').inject([]) do |ary, stop|
         
@@ -27,29 +27,11 @@ module TrafikantenTravel
           lat_lng = GeoUtm::UTM.new('32V', x_coord.to_i, y_coord.to_i).to_lat_lon
         end
 
-        ary << Station.new({
-          :id => stop.css('fromid').text, 
-          :name => stop.css('StopName').text,
+        ary << Rack.new({
+          :id => id, 
           :lat => lat_lng ? lat_lng.lat.to_s : nil,
           :lng => lat_lng ? lat_lng.lon.to_s : nil
         })
-      end
-    end
-    
-    # Internal type @ Trafikanten. Used with GET requests for routes in
-    # depType and arrType. We guess these unless set.
-    def type
-      return @type if @type
-      
-      case @id.length
-      when 8
-        '1'
-      when 10
-        '2'
-      when 9
-        '4'
-      else
-        nil
       end
     end
     

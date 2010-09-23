@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{trafikanten-travel}
-  s.version = "0.2.4"
+  s.name = %q{bysykkel-travel}
+  s.version = "0.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Rune Botten"]
+  s.authors = ["Espen Antonsen & Rune Botten"]
   s.date = %q{2010-07-05}
-  s.description = %q{Query the travel planner at trafikanten.no with Ruby}
-  s.email = %q{rbotten@gmail.com}
+  s.description = %q{Query Clear Channel Bysykkel racks with Ruby}
+  s.email = %q{espen@inspired.no}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -24,30 +24,26 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
-     "lib/trafikanten_travel.rb",
-     "lib/trafikanten_travel/route.rb",
-     "lib/trafikanten_travel/station.rb",
-     "lib/trafikanten_travel/utils.rb",
+     "lib/bysykkel_travel.rb",
+     "lib/bysykkel_travel/rack.rb",
+     "lib/bysykkel_travel/utils.rb",
      "spec/fixtures/deviation.html",
-     "spec/fixtures/route.html",
-     "spec/fixtures/route_search.html",
-     "spec/fixtures/route_with_deviation.html",
+     "spec/fixtures/rack.html",
+     "spec/fixtures/rack_search.html",
      "spec/options",
      "spec/spec.opts",
-     "spec/trafikanten_travel/route_spec.rb",
-     "spec/trafikanten_travel/station_spec.rb",
-     "spec/trafikanten_travel/utils_spec.rb",
-     "trafikanten-travel.gemspec"
+     "spec/bysykkel_travel/rack_spec.rb",
+     "spec/bysykkel_travel/utils_spec.rb",
+     "bysykkel-travel.gemspec"
   ]
-  s.homepage = %q{http://github.com/runeb/trafikanten-travel}
+  s.homepage = %q{http://github.com/espen/bysykkel-travel}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Trafikanten.no Travel Planner}
+  s.summary = %q{Bysykkel Travel Planner}
   s.test_files = [
-    "spec/trafikanten_travel/route_spec.rb",
-     "spec/trafikanten_travel/station_spec.rb",
-     "spec/trafikanten_travel/utils_spec.rb"
+     "spec/bysykkel_travel/rack_spec.rb",
+     "spec/bysykkel_travel/utils_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
