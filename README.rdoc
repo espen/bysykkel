@@ -4,8 +4,6 @@
 
 Query the Clear Channel XML api to get a live overview of availability of city bikes in Oslo.
 
-
-
 == TODO
 * More tests.
 * Handle http errors (404, 500)
