@@ -10,11 +10,7 @@ module BysykkelTravel
       end
     end
     
-    # Query the Travel XML API @ trafikanten.no for Stations. This will only
-    # include actual stations, not regions (type 2) We'll have to parse
-    # m.trafikanten.no to receive those, but that will not give us coordinates
-    # for the actual stations. See git history for an implementation that did
-    # this.
+    # Query the Travel XML API @ clearchannel.no for Racks.
     def self.find_by_id(id)
       raw = open(BASE_URL % CGI.escape(id))
       doc = Nokogiri::XML.parse raw

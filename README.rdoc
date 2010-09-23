@@ -1,50 +1,13 @@
-= Trafikanten Travel Planner
+= Bysykkel Travel Planner
 
 == Description
 
-This is a simple way to request information about travel routes within the
-public transport system of greater Oslo, Norway. There is no API for looking
-up route information, so this library gives you an unofficial one. Note that
-since it is unofficial it might stop working at any time. It should however
-be easy to adjust this code to make it work again.
+Query the Clear Channel XML api to get a live overview of availability of city bikes in Oslo.
 
-There are typically two things you need to do to retrieve information about a
-route:
 
-* Find the stations you want to travel from and to
-* Use these to query for a route between them
-
-=== Finding stations
-You query trafikanten.no by the name of the station and you receive an array of hits with information about each
-
-	require 'trafikanten_travel'
-	stations = Station.find_by_name 'Sthanshaugen'
-
-The station objects will have attributes for name, id, type, lat and lng. lat and lng might not be available, and are then set to nil.
-
-=== Finding a route between stations
-Once you have the stations, you use them to search for a Route:
-
-	from = stations[0]
-	to = stations[1]
-	route = Route.find(from, to)
-	
-	# or specify a time
-	route = Route.find(from, to, a_time_object)
-
-This will query trafikanten.no for the first available route between the
-stations based on Time.now or the passed in time and parse the route it found,
-if any. The Route object will have a duration attribute for the duration of
-the trip in minutes, and a steps array with a Step object for each leg of the
-journey. Each Step object tells you its type (walk, wait, tram, subway, boat,
-train, bus), duration in minutes, and arrival and departure station names
-along with times for these. All these are attributes on the Step object.
 
 == TODO
-* Also include 'area' stations, which are not actual stations but regions
-* Implement finding routes by street address
-* Implement via-stations to chain routes together
-* Let the depart and arrive stations in Step be actual Station objects
+* List all racks
 
 == Note on Patches/Pull Requests
 
@@ -62,4 +25,4 @@ If you get errors about missing gems - `bundle install` should get you sorted.
 
 == Copyright
 
-Copyright (c) 2010 Rune Botten. See LICENSE for details.
+Copyright (c) 2010 Espen Antonsen & Rune Botten. See LICENSE for details.

@@ -4,12 +4,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "trafikanten-travel"
-    gem.summary = %Q{Trafikanten.no Travel Planner}
-    gem.description = %Q{Query the travel planner at trafikanten.no with Ruby}
-    gem.email = "rbotten@gmail.com"
-    gem.homepage = "http://github.com/runeb/trafikanten-travel"
-    gem.authors = ["Rune Botten"]
+    gem.name = "bysykkel-travel"
+    gem.summary = %Q{Bysykkel Travel Planner}
+    gem.description = %Q{Query the bysykkel travel planner at clearchannel.no with Ruby}
+    gem.email = "espen@inspired.no"
+    gem.homepage = "http://github.com/espen/bysykkel-travel"
+    gem.authors = ["Espen Antonsen & Rune Botten"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.add_dependency('nokogiri', '>= 1.4.1')
     gem.add_dependency('geoutm', '>= 0.0.4') # --source http://gems.github.com
@@ -42,7 +42,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "trafikanten-travel #{version}"
+  rdoc.title = "bysykkel-travel #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
