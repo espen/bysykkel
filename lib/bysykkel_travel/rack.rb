@@ -14,14 +14,13 @@ module BysykkelTravel
     def self.find_by_id(id)
       raw = open(BASE_URL % CGI.escape(id))
       doc = Nokogiri::XML.parse raw
-      hits = doc.xpath('string').inject([]) do |ary, stop|
-
-        ary << Rack.new({
+      rack = Nokogiri::XML(doc.children[0].children[0].text).children[0]
+      {
           :id => id, 
-          :description => stop.xpath('description').text,
-          :lat => stop.xpath('latitude').text,
-          :lng => stop.xpath('longitute').text
-        })
+          :description => rack.xpath('description').text,
+          :lat => rack.xpath('latitude').text,
+          :lng => rack.xpath('longitute').text
+        }
       end
     end
     
