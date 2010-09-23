@@ -15,13 +15,12 @@ module BysykkelTravel
       raw = open(BASE_URL % CGI.escape(id))
       doc = Nokogiri::XML.parse raw
       rack = Nokogiri::XML(doc.children[0].children[0].text).children[0]
-      {
+      return {
           :id => id, 
           :description => rack.xpath('description').text,
           :lat => rack.xpath('latitude').text,
           :lng => rack.xpath('longitute').text
         }
-      end
     end
     
   end
