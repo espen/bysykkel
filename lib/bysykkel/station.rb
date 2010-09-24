@@ -26,13 +26,14 @@ module Bysykkel
       
       
       hydra = Typhoeus::Hydra.new( :max_concurrency => 6, :initial_pool_size => 5 )
-      stations_all = Array.new()
+      stations_all = Array.new
       stations.each do |station|
         req = Typhoeus::Request.new( STATION_URL % station.id )
         req.on_complete do |response|
           doc = Nokogiri::XML.parse response.body
           xml_station = Nokogiri::XML(doc.children[0].children[0].text).children[0]
-          stations_all << self.parse_station(station.id, xml_station)
+          parsed_station = self.parse_station(station.id, xml_station)
+          stations_all << parsed_station unless parsed_station == {}
         end
         hydra.queue req
       end
@@ -44,8 +45,9 @@ module Bysykkel
     def self.find(id)
       raw = open(STATION_URL % id )
       doc = Nokogiri::XML.parse raw
-      station = Nokogiri::XML(doc.children[0].children[0].text).children[0]
-      self.parse_station(id, station)
+      xml_station = Nokogiri::XML(doc.children[0].children[0].text).children[0]
+      parsed_station = self.parse_station(id, xml_station)
+      parsed_station unless parsed_station == {}
     end
     
     private
