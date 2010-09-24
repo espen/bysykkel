@@ -13,15 +13,31 @@ module Bysykkel
     
     # Query the Bysykkel XML API @ clearchannel.no for stations.
     def self.all()
+      
       raw = open(STATIONS_URL)
       doc = Nokogiri::XML.parse raw
-      stations = Nokogiri::XML('<stations>' + doc.children[0].children[0].text + '</stations>')
-      hits = stations.xpath('//station').children.inject([]) do |ary, station|
+      stations_xml = Nokogiri::XML('<stations>' + doc.children[0].children[0].text + '</stations>')
+      stations = stations_xml.xpath('//station').children.inject([]) do |ary, station|
             ary << Station.new({
               :id => station.text.to_i
             }) unless station.text.to_i >= 500
             ary
       end
+      
+      
+      hydra = Typhoeus::Hydra.new( :max_concurrency => 6, :initial_pool_size => 5 )
+      stations_all = Array.new()
+      stations.each do |station|
+        req = Typhoeus::Request.new( STATION_URL % station.id )
+        req.on_complete do |response|
+          doc = Nokogiri::XML.parse response.body
+          xml_station = Nokogiri::XML(doc.children[0].children[0].text).children[0]
+          stations_all << self.parse_station(station.id, xml_station)
+        end
+        hydra.queue req
+      end
+      hydra.run
+      stations_all
     end
     
     # Query the Bysykkel XML API @ clearchannel.no for a station.
@@ -29,8 +45,13 @@ module Bysykkel
       raw = open(STATION_URL % id )
       doc = Nokogiri::XML.parse raw
       station = Nokogiri::XML(doc.children[0].children[0].text).children[0]
+      self.parse_station(id, station)
+    end
+    
+    private
+    def self.parse_station(id, station)
       return {} if station.xpath('online').text == ''
-      return Station.new( {
+      Station.new( {
           :id => id.to_i, 
           :name => station.xpath('description').text.strip,
           :empty_locks => station.xpath('empty_locks').text.to_i,

@@ -2,7 +2,6 @@ GEM
   remote: http://gemcutter.org/
   specs:
     gemcutter (0.6.1)
-    geoutm (0.0.4)
     git (1.2.5)
     jeweler (1.4.0)
       gemcutter (>= 0.1.0)
@@ -10,15 +9,18 @@ GEM
       rubyforge (>= 2.0.0)
     json_pure (1.4.6)
     nokogiri (1.4.1)
+    rack (1.2.1)
     rspec (1.3.0)
     rubyforge (2.0.4)
       json_pure (>= 1.1.7)
+    typhoeus (0.1.31)
+      rack
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  geoutm (= 0.0.4)
   jeweler
   nokogiri (= 1.4.1)
   rspec (= 1.3.0)
+  typhoeus (= 0.1.31)

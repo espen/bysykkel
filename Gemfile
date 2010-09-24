@@ -2,7 +2,7 @@
 source 'http://gemcutter.org'
 
 gem 'nokogiri', '1.4.1'
-gem 'geoutm', '0.0.4'
+gem 'typhoeus', '0.1.31'
 
 group :test do
   gem 'rspec', '1.3.0'
