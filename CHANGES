@@ -1,5 +1,6 @@
 * 0.3.0
-  Using Typheous to gather all stations
+  Using Typheous to gather all stations.
+  Not returning numbers in name.
 * 0.2.0
   Refactored. Renamed to bysykkel.
   Added station.all

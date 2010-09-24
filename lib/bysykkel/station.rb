@@ -55,7 +55,7 @@ module Bysykkel
       return {} if station.xpath('online').text == ''
       Station.new( {
           :id => id.to_i, 
-          :name => station.xpath('description').text.strip,
+          :name => station.xpath('description').text.strip.gsub(/[0-9]+-/, ""),
           :empty_locks => station.xpath('empty_locks').text.to_i,
           :ready_bikes => station.xpath('ready_bikes').text.to_i,
           :online => station.xpath('online').text == '1' ? true : false,
