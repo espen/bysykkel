@@ -11,7 +11,7 @@ begin
     gem.homepage = "http://github.com/espen/bysykkel"
     gem.authors = ["Espen Antonsen & Rune Botten"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
-    gem.add_dependency('typhoeus', '>= 1.3.0')
+    gem.add_dependency('typhoeus', '>= 0.1.31')
     gem.add_dependency('nokogiri', '>= 1.4.1')
     gem.add_dependency('geoutm', '>= 0.0.4') # --source http://gems.github.com
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
