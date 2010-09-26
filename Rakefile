@@ -5,8 +5,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "bysykkel"
-    gem.summary = %Q{Bysykkel API Wrapper}
-    gem.description = %Q{Query the city bike availability API at clearchannel.no with Ruby}
+    gem.summary = %Q{Oslo City Bike (Bysykkel) Ruby API}
+    gem.description = %Q{Query the Oslo City Bike availability API at clearchannel.no with Ruby. Not affilliated with ClearChannel.}
     gem.email = "espen@inspired.no"
     gem.homepage = "http://github.com/espen/bysykkel"
     gem.authors = ["Espen Antonsen & Rune Botten"]

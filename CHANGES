@@ -1,3 +1,6 @@
+* 0.4.0
+  Refactored to rack.
+
 * 0.3.0
   Using Typheous to gather all stations.
   Not returning numbers in name.
