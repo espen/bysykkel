@@ -1,4 +1,7 @@
 module Bysykkel
+  class Error < StandardError;end
+  class BadRequest < Error;end
+
   class Rack
     RACKS_URL = 'http://smartbikeportal.clearchannel.no/public/mobapp/maq.asmx/getRacks'
     RACK_URL = 'http://smartbikeportal.clearchannel.no/public/mobapp/maq.asmx/getRack?id=%s'
