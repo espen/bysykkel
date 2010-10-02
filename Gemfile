@@ -1,7 +1,7 @@
 # Edit this Gemfile to bundle your application's dependencies.
 source 'http://gemcutter.org'
 
-gem 'nokogiri', '1.4.1'
+gem 'nokogiri', '1.4.1', :require => 'nokogiri'
 gem 'typhoeus', '0.1.31'
 
 group :test do

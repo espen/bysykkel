@@ -1,6 +1,6 @@
 #:encoding:utf-8
 
-require File.dirname(__FILE__) + '/../../lib/bysykkel/rack'
+require File.dirname(__FILE__) + '/../../lib/bysykkel'
 
 describe Bysykkel::Rack do  
   context 'view' do    
@@ -25,17 +25,12 @@ describe Bysykkel::Rack do
   context 'all' do    
     it 'view all and returns rack' do
       racks = Bysykkel::Rack.all
-      racks.size.should == 100
+      racks.size.should == 102
 
       # Test first
       rack = racks[0]
       rack.id.should == 1
       
-    end
-    
-    it 'returns an empty array when searching for racks and did not find any' do
-      rack = Bysykkel::Rack.find(289282)
-      rack.should == []
     end
     
   end
