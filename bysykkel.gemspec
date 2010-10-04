@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bysykkel}
-  s.version = "0.4.1"
+  s.version = "0.4.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Espen Antonsen & Rune Botten"]
-  s.date = %q{2010-10-02}
+  s.date = %q{2010-10-04}
   s.description = %q{Query the Oslo City Bike availability API at clearchannel.no with Ruby. Not affilliated with ClearChannel.}
   s.email = %q{espen@inspired.no}
   s.extra_rdoc_files = [
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "bysykkel.gemspec",
      "lib/bysykkel.rb",
      "lib/bysykkel/rack.rb",
      "spec/bysykkel/rack_spec.rb",

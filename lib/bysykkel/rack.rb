@@ -61,8 +61,8 @@ module Bysykkel
           :empty_locks => rack.xpath('empty_locks').text.to_i,
           :ready_bikes => rack.xpath('ready_bikes').text.to_i,
           :online => rack.xpath('online').text == '1' ? true : false,
-          :lat => rack.xpath('latitude').text,
-          :lng => rack.xpath('longitute').text
+          :lat => rack.xpath('latitude').text.to_f,
+          :lng => rack.xpath('longitute').text.to_f
         } )
     end
     

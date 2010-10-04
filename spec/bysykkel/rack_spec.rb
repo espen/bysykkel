@@ -42,8 +42,8 @@ describe Bysykkel::Rack do
       # Test first
       rack = racks.first
       rack.name.should == "Middelthunsgate (vis-a-vis nr. 21, retning Kirkeveien)"
-      rack.lat.should == '59.92786125852981'
-      rack.lng.should == '10.709009170532226'
+      rack.lat.should == 59.92786125852981
+      rack.lng.should == 10.709009170532226
     end
   end
   
