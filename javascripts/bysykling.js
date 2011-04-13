@@ -12,6 +12,7 @@ if(typeof(console) === 'undefined') {
     var console = {}
     console.log = console.error = console.info = console.debug = console.warn = console.trace = console.dir = console.dirxml = console.group = console.groupEnd = console.time = console.timeEnd = console.assert = console.profile = function() {};
 }
+localStorage.removeItem("racks");
   
 function listAll() {
     $( '#all div[data-role="content"] ul' ).remove();
