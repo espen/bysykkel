@@ -150,7 +150,7 @@ $(document).ready( function() {
 	}
 	else {
     	if ( localStorage.getItem("racks") || !localStorage.getItem('racks') == null ) {
-    	    $.changePage( $('#all'),$('#favorites') );
+    	    $.mobile.changePage ( $('#favorites') );
     	} else {
     	    listAll();
     	}
