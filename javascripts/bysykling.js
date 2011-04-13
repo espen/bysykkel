@@ -130,18 +130,19 @@ window.applicationCache.addEventListener(
 $(document).ready( function() {
     $('#all li').live('click', addRack );
     $('#nearby li').live('click', addRack );
-    $('#all').bind('beforepageshow', function() {
+    $('#all').live('pagebeforeshow', function(event, ui) {
         console.log('show all');
         listAll();
     });
-    $('#nearby').bind('beforepageshow', function() {
+    $('#nearby').live('pagebeforeshow', function(event, ui) {
         console.log('show nearby');
         listNearby();
     });
-    $('#favorites').bind('beforepageshow', function() {
+    $('#favorites').live('pagebeforeshow', function(event, ui) {
         console.log('show racks');
         listRacks();
     });
+    
 
     
 	var current_location;
