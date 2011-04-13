@@ -67,7 +67,7 @@ function listRacks() {
 	var count = racks.length;
     $( '#favorites div[data-role="content"] ul' ).remove();
     list = $( "<ul>", { 
-			"class": "ui-listbox-list",
+			"class": "ui-listbox-list"
 		}).appendTo( '#favorites div[data-role="content"]' );
 	racks.forEach( function(rack,i) {
 		$.getJSON('http://bysykling.heroku.com/api/bysykkel/v1/racks/' + rack + '?callback=?', function(data) {
@@ -81,7 +81,7 @@ function listRacks() {
 
 function writeRack(page, rack,showAvailability) {
     showAvailability = (typeof showAvailability == "undefined" ? true : false);
-    $('#' + page + ' ul').append( '<li data-id="' + rack.id + '" data-lat="' + rack.geo.coordinates[1] + '" data-lng="' + rack.geo.coordinates[0] + '"' + (typeof rack.distance != "undefined" ? (' data-distance="' + rack.distance + '"'):  '') + '>' +
+    $('#' + page + ' ul').append( '<li data-icon="' + ( page == "favorites" ? "false" : "plus") + '" data-id="' + rack.id + '" data-lat="' + rack.geo.coordinates[1] + '" data-lng="' + rack.geo.coordinates[0] + '"' + (typeof rack.distance != "undefined" ? (' data-distance="' + rack.distance + '"'):  '') + '>' +
             '<a href="#">' + rack.name + 
             (typeof rack.distance != "undefined" ? (' (' + parseInt( rack.distance * 1000 ) + ' m.)'):  '') +
             (showAvailability ? '<br>' +
@@ -131,6 +131,7 @@ window.applicationCache.addEventListener(
 $(document).ready( function() {
     $('#all li').live('click', addRack );
     $('#nearby li').live('click', addRack );
+    $('#favorites li').live('swiperight', removeRack );
     $('#all').live('pagebeforeshow', function(event, ui) {
         console.log('show all');
         listAll();
