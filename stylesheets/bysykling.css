@@ -1,0 +1,175 @@
+/* http://meyerweb.com/eric/tools/css/reset/ */
+/* v1.0 | 20080212 */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, header, footer, section, article {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* reset done */
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+
+body {
+    background-image: url('bysykling-ios-background.png');
+    background-repeat:  no-repeat;
+    background-position: 50% 0;
+    background-color: #000;
+    color: #fff;
+    font-family: "Helvetica";
+    font-size: 16px;
+    overflow: hidden;
+}
+header {
+    background-color: #ccc;
+    border-bottom: 1px solid #666;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ccc), to(#999));
+    background-image: gradient(linear, left top, left bottom, from(#ccc), to(#999));
+}
+
+header h1 {
+    width: 100%;
+    padding: 10px 0;
+    color: #222;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #fff;
+}
+
+#wrapper {
+    position:relative;
+    z-index:1;
+    overflow: auto !important;
+    width:100%;
+    background-color: rgba(255,255,255,0.8);
+    border:1px solid white;
+    height: auto;
+}
+
+ul {
+    padding: 10px;
+    list-style-type: none;
+    color: #222222;
+}
+
+ul div.info {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid silver;
+    font-weight: bold;
+    color: #2C4081;
+    padding: 5px;
+}
+
+ul#racks li {
+    padding: 5px;
+    line-height: 25px;
+    min-height: 25px;
+    border: 1px solid #999999;
+    background-color: #FFFFFF;
+}
+ul#racks.all li a {
+    display: block;
+    cursor: pointer;
+}
+
+ul#racks li .delete {
+    display: none;
+    background-color: red;
+    float: right;
+    position: relative;
+}
+
+ul#racks li:first-child {
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+ul#racks li:last-child {
+    -webkit-border-bottom-left-radius: 8px;
+    -webkit-border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+footer {
+    padding: 10px 0;
+    height: 34px;
+    display: none;
+    background-color: rgba(0,0,0,0.1);
+    border-bottom: 1px solid #666;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ddd), to(#999));
+    background-image: gradient(linear, left top, left bottom, from(#ddd), to(#999));
+    width: 100%;
+}
+
+footer button {
+    height: 34px;
+    padding: 7px;
+    color: rgba(0,0,0,0.8);
+    font-weight: bold;
+    font-size: 0.8em;
+    border: 2px solid silver;
+    background: -webkit-gradient( linear, left top, left bottom, from(#e2e2e2), to(#8c8a88), color-stop(0.5, #acadae), color-stop(0.8, #82807e) );
+    background: gradient( linear, left top, left bottom, from(#e2e2e2), to(#8c8a88), color-stop(0.5, #acadae), color-stop(0.8, #82807e) );
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}

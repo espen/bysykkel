@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# Version 65
+index.html
+javascript/bysykling.js
+javascripts/geo_calc.js
+stylesheets/bysykling.css
+images/bysykling-ios-background.png
+images/bysykling-ios-startup.png
+images/bysykling-ios-icon.png
+favicon.ico
+
+NETWORK:
+http://bysykling.heroku.com
