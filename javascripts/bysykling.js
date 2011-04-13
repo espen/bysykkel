@@ -82,7 +82,7 @@ function listRacks() {
 function writeRack(page, rack,showAvailability) {
     showAvailability = (typeof showAvailability == "undefined" ? true : false);
     $('#' + page + ' ul').append( '<li data-id="' + rack.id + '" data-lat="' + rack.geo.coordinates[1] + '" data-lng="' + rack.geo.coordinates[0] + '"' + (typeof rack.distance != "undefined" ? (' data-distance="' + rack.distance + '"'):  '') + '>' +
-            '<a href="#favorites">' + rack.name + 
+            '<a href="#">' + rack.name + 
             (typeof rack.distance != "undefined" ? (' (' + parseInt( rack.distance * 1000 ) + ' m.)'):  '') +
             (showAvailability ? '<br>' +
 			(rack.ready_bikes == 0 ? 'Ingen' : rack.ready_bikes) + ' ledige sykler. ' +
@@ -100,6 +100,7 @@ function addRack() {
 	var racks = localStorage.getItem("racks") ? localStorage.getItem("racks").split(';') : [];
 	racks.push( $(this).attr('data-id') );
 	localStorage.setItem( "racks", racks.join(';')  );
+	$.mobile.changePage ( $('#favorites') );	
 }
 
 function removeRack(e) {
